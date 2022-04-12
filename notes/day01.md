@@ -263,7 +263,7 @@ How would we connect a html files to a CSS file?
 
 ### Exercise 1: Kitten Started
 
-Let’s try adding some text about us in index.html!Recall the <html>, <h1>, <p> and <div> tags. Perhaps some others such as [<section>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section) might be useful... 🤔
+Let’s try adding some text about us in index.html!Recall the `<html>`, `<h1>`, `<p>` and` <div> `tags. Perhaps some others such as [<section>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/section) might be useful... 🤔
 
 ![img](day01.assets/o_LobiEHCYJfogcjFQqu7JmiKA9eNf8BvyihS6r3MAZ4bltLB5x2hNhl7QzNNunmQJ5gLXckMvO5KUDmt3cVkkRzaJPagK5LA-93unbHH8nl9bVjcu7BhD-yBHMgFBeZdrwEw4U3ZSQX.png)
 
@@ -291,7 +291,7 @@ Let’s try adding some text about us in index.html!Recall the <html>, <h1>, <p>
 
 ### Exercise 2: Pretty Paws
 
-Let’s add a profile picture index.html!Hint! Recall the <img> tag and its attribute?
+Let’s add a profile picture index.html!Hint! Recall the `<img>` tag and its attribute?
 
 ```html
 <img src="cat.jpeg">
