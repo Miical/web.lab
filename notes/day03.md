@@ -100,3 +100,198 @@ const incrementCatHappiness = () => {
 - Multiple end points can under the same URLs, but are differentiated based on the type of request
 - ../comment, gets or adds a comment based on GET or POST
 
+## React Continued
+
+Note: You can't directly edit a component's state from another component!
+
+### A Workaround: Callback Functions
+
+passing setState function to child and then calling it from there
+
+```js
+// ParentComponet
+const changeCatHappiness = () => {
+    setCatHappiness(catHappiness + 1);
+}
+
+return (
+	<ChildComponent updateFunction=}{changeCatHappiness} />
+)
+```
+
+workaround
+
+
+
+### In-depth: Utilizing state
+
+Scenario: Modifying original state
+
+```react
+buyDog = () => {
+    setPets(pets.concat["dog"]);
+}
+```
+
+Scenario: Alternative way to update state with object destructuring (generally recommended)
+
+```js
+buyDog = () => {
+    setPets([...pets, "dog"]);
+}
+```
+
+
+
+**What is this function going to print?**
+
+```react
+testingStuff = () => {
+    /* assume persons starts as an empty array [] */
+    setPersons([...persons, "me"]);
+    console.log(persons);
+}
+```
+
+The set person's function is asynchronous.
+
+ 
+
+### Lifecycle Timeline
+
+![image-20220418204649586](day03.assets/image-20220418204649586.png)
+
+
+
+**`useEffect()`  hook**
+
+- Runs after specific variables change
+  - Can think of as response to state change 
+  - Commonly used to load data into state
+  - Call an API/perform some computation/etc. at specific times
+- syntax: useEffect(function, optional dependency array)
+  - runs function every time a variable in dependency array changes
+
+```react
+useEffect(() => {
+    console.log(persons);
+}, [persons])
+
+// whenever persons is changed, the function will be called
+```
+
+
+
+- useEffect(function, [var1, var2]) runs function every time var1 or var2 changes
+- useEffect(function, []) runs function once, immediately after initialization
+- useEffect(function) runs every time any state variable changes
+
+
+
+### get() and post()
+
+```react
+get("/api/foo", { bar: 0}).then((res))
+```
+
+```react
+useEffect(() => {
+    get("/api/packets").then((packageList) => {
+        setPacket(packageList);
+    })
+}, [])
+```
+
+
+
+### Sending data
+
+```react
+const handleToggleAdmin = () => {
+    post("/api/user/admin", {admin: !admin}.then(() => {
+        setAdmin(!admin);
+    })
+}
+```
+
+
+
+### Review: JSX
+
+Just a way to write HTML onto the page, but from JavaSript!
+
+```jsx
+const element = <h1> Floow me at http://twitter.com</h1>;
+```
+
+```jsx
+let header = <h1>I love kevin qian</h1>;
+let content = <p>uwu</p>;
+
+return (
+	<div>
+    	{header}
+        {content}
+    </div>
+)
+```
+
+
+
+### Using map() in React
+
+![image-20220418220331872](day03.assets/image-20220418220331872.png)
+
+```react
+return date.map((item) => {
+    return <div key = {item.id}>{item.text}</div>
+})
+```
+
+
+
+**Math**
+
+- Math.abs()
+- Math.min(), Math.max()
+- Math.PI, Math.sin()
+- etc.
+
+
+
+**Dates**
+
+```js
+let bDay = new Date(1912, 10, 20);
+let nextDay = new Date(bday);
+let nextDay.setDate(nextDay.getDate() + 1);
+```
+
+
+
+**Sets**
+
+ ```js
+ let s = new Set()
+ let s.add(1)
+ let s.add(2)
+ let s.add(1) // s = {1, 2}
+ ```
+
+
+
+**JSON**
+
+convert objects into strings and vice verse
+
+```js
+let x = {1: 2, foo: {uwu: 'owo'}}
+let y = JSON.stringify(x)
+let z = JSON.parse(y)
+```
+
+
+
+**Other React info**
+
+https://reactjs.org/docs/hooks-reference.html
