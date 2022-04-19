@@ -295,3 +295,136 @@ let z = JSON.parse(y)
 **Other React info**
 
 https://reactjs.org/docs/hooks-reference.html
+
+
+
+## Workshop 3: Data Fetching and Routing Workshop
+
+**Warmup**
+
+- In App,js
+  - Import Feed.js
+  - Render Feed instead of Profile
+
+---
+
+```react
+const Feed = () => {
+  // TODO (step1): define state to hold stories
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    // TODO (step1): implement a GET call to retrieve stories,
+    // and assign it to state
+    get("/api/stories").then(
+      (storyObjs) => {
+        setStories(storyObjs);
+      }
+    );
+  }, []);
+
+  return <div> { JSON.stringify(stories) } </div>;
+  // TODO (step1): render the raw stories data from state
+  // TODO (step2): render a SingleStory with hardcoded props
+  // TODO (step3): map the state to SingleStory components
+  // TODO (step4): add in the NewStory component
+  // TODO (step6): use Card instead of SingleStory
+};
+```
+
+---
+
+```react
+const SingleStory = (props) => {
+  return (
+    <div className="Card-story">
+      <div> {props.creator_name} </div>
+      <div> {props.content} </div>
+      {/* TODO (step2): use JSX and props to render story creator and content */}
+    </div>
+  );
+};
+```
+
+```js
+const Feed = () => {
+  // TODO (step1): define state to hold stories
+  const [stories, setStories] = useState([]);
+
+  useEffect(() => {
+    get("/api/stories").then((storyObjs) => {
+      setStories(storyObjs);
+    });
+  }, []);
+
+  let feedStories = null;
+  if (stories.length !== 0) {
+    feedStories = stories.map((storyObj) => {
+      return <SingleStory creator_name={storyObj.creator_name} content={storyObj.content}/>;
+    });
+  } else {
+    feedStories = <div> no stories :(( </div>
+  }
+
+
+  return (
+    <div>
+      {feedStories}
+    </div>
+  );
+  // TODO (step3): map the state to SingleStory components
+  // TODO (step4): add in the NewStory component
+  // TODO (step6): use Card instead of SingleStory
+};
+```
+
+```react
+const NewPostInput = (props) => {
+  const [value, setValue] = useState("");
+
+  // called whenever the user types in the new post input box
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  // called when the user hits "Submit" for a new post
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.onSubmit && props.onSubmit(value);
+    setValue("");
+  };
+
+  return (
+    <div className="u-flex">
+      <input
+        type="text"
+        placeholder={props.defaultText}
+        value={value}
+        onChange={handleChange}
+        className="NewPostInput-input"
+      />
+      <button
+        type="submit"
+        className="NewPostInput-button u-pointer"
+        value="Submit"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
+    </div>
+  );
+};
+
+/**
+ * New Story is a New Post component for stories
+ */
+const NewStory = () => {
+  // TODO (step4): implement addStory
+  const addStory = (value) => {
+    post("/api/stories", {content: value});
+  };
+  // TODO (step4): implement render
+  return <NewPostInput onSubmit={addStory} defaultText="enter post here" />
+};
+```
+
