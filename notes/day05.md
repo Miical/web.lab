@@ -228,3 +228,178 @@ router.post("/story", (req, res) => {
 });
 ```
 
+
+
+## Advanced CSS
+
+### Palettes
+
+how many theme colors?
+
+2-3 colors
+
+A website to select color: [coolors.co]()
+
+### Box model
+
+![image-20220425135904726](day05.assets/image-20220425135904726.png)
+
+### Layouts
+
+#### Display
+
+display determines how elements size & sit with/in each other 
+
+**display: block**
+
+big blocks that stretch across, always sit on new lines generally useful, default property for div
+
+(i.e. <div, <section, <ul, <p, <h1-6, <header)
+
+**display: inline**
+
+an element that is part of text, size is always proportional to text they do NOT accept width/height properties and top/bottom margins
+
+(i.e, <span, <a, <img)
+
+**display: none**
+
+**display: flex**
+
+**display: grid**
+
+```css
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr
+    grid-templeae-rows: 100px 200px
+}
+```
+
+#### Position
+
+position determines where an elements sits based on other  elements
+
+**position: static**
+
+renders boxes position based on order in document default property value for div
+
+**position: relative**
+
+positions the element "relative" to where it would be if static useful for slight modifications in position
+
+**position: absolute**
+
+positions the element relative to first ancestor positioned non-statically useful for navbars and sidebars
+
+**position: fixed**
+
+positions the element relative to the screen useful for navbars and bulletins
+
+### Transitions & animations
+
+transition determines how changes in properties show up on your screen 
+
+```css
+.card {
+    transition: background-color 1s ease-in;
+}
+```
+
+animation defines keyframes to transition through
+
+```css
+.card {
+    animation: weblab 2s infinite;
+}
+
+@keyframes weblbb { 
+    0% {
+        color: red;
+    }
+    100 % {
+        width: 300px;
+    }
+}
+```
+
+### Responsive Layouts
+
+**Media queries**
+
+Media queries allow you to run certain CSS only if:
+
+- The device screen is at least certain size
+- The device supports hovering (with a mouse)
+- The device supports colors
+- ... Speech input, aspect ratio, etc
+
+   ```css
+   @media (max-width: 800px) {
+       .card: {
+           background-color: pink;
+       }
+   }
+   ```
+
+
+
+### Special CSS Selectors
+
+Recap of Selectors
+
+- Type selectors: a, p, h1, div, etc
+
+- Class selectors: .classname
+
+- ID selectors: #idname 
+
+- Attribute selectors: [attr=value]
+
+  Can also filter with attributes that start with , end with, or contain a value!
+
+- CSS Combinators
+
+  Used to select elements in relation to other elements
+
+  - Siblings 
+
+  - Children
+
+  - Descendants
+
+    - Adjacent siblings: +
+
+      h2 + p {// selects all <p that directly follow an <h2}
+
+    - General siblings: ~
+
+      p ~ span { // selects all <span that follow an <p}
+
+    - Child: >
+
+      ul > li { // selects all <li dirctly inside a <ul}
+
+    - Descendant: ' '(space)
+
+      div span {// selects all <span anywhere inside a <div} 
+
+- CSS Pseudo-classes
+
+  Used to specify a selector that is not direct represented in the HTML.
+
+  ```css
+  p::first-line { // first line of a <p>}
+  ::selection { // user highlighted text }
+  
+  a::after {
+      // styling placed in a generated element after every <a>
+  }
+  ```
+
+  
+
+  
+
+
+
