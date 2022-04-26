@@ -155,5 +155,97 @@ const NewMessage = (props) => {
 }
 ```
 
-## Step 2: Add the state activeChat to Chatbook
+### Step 2: Add the state activeChat to Chatbook
+
+```js
+  const [activeChat, setActiveChat] = useState({
+    recipient: ALL_CHAT,
+    messages: TEST_MESSAGES,
+  });
+```
+
+### Step 3 - Implement the API endpoints
+
+```js
+//define a message schema for the database
+const MessageSchema = new mongoose.Schema({
+    // TODO (step 3.1): Write the schema for a message
+    sender: {
+        _id: String,
+        name: String,
+    },
+    recipient: {
+        _id: String,
+        name: String,
+    },
+    timestamp: { type: Date, default: Date.now },
+    content: String,
+});
+
+```
+
+```js
+// TODO (step 3.3): implement chat route
+router.get("/chat", (req, res) => {
+  const query = { "recipient.id" : "ALL_CHAT" };
+  Message.find(query).then((message) => res.send(message));
+});
+
+// TODO (step 3.2): implement message route
+router.post("/message", auth.ensureLoggedIn, (req, res) => {
+  console.log("Received message from ${req.user.name} : ${req.body.content}");
+  const message = new Message({
+    recipient: req.body.recipient, 
+    sender: {
+      _id: req.user._id,
+      name: req.user.name,
+    },
+    content: req.body.content
+  });
+  message.save();
+});
+```
+
+### Step4
+
+```js
+const NewMessage = (props) => {
+  // TODO (step 1.2): add sendMessage function and pass to onSubmit
+  const sendMessage = (value) => {
+    const body = { recipient: props.recipient, content: value };
+    post("/api/message", body);
+  }
+  
+
+  // TODO (step 1.1): populate NewMessage
+  return <NewPostInput defaultText="New message"/>;
+}
+```
+
+```js
+  const loadMessageHistory = (recipient) => {
+    // This function loads the messages by getting them from the server
+    // TODO (step 5.1): get /api/chat and set the activeChat
+    get("/api/chat", { recipient_id: recipient._id }).then(message => {
+      setActiveChat({
+        recipient: recipient,
+        messages: messages,
+      });
+    });
+  };
+```
+
+
+
+### Real Time Chatbook with Socket.io
+
+**Socket IO**
+
+![image-20220426114038523](day06.assets/image-20220426114038523.png)
+
+![image-20220426114806190](day06.assets/image-20220426114806190.png)
+
+### Step 6: Add Sockets to See Messages Instantly!
+
+![image-20220426115034807](day06.assets/image-20220426115034807.png)
 
